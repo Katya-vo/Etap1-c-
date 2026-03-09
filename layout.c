@@ -1,4 +1,6 @@
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "layout.h"
 #ifndef M_PI
 #define M_PI 3.14159
@@ -20,6 +22,7 @@ void random_layout(double *x, double *y, int n) {
         y[i] = (rand() % 200) - 100;
     }
 }
+
 
 
 
