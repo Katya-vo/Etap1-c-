@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    int n =0;
     Edge *edges;
-    int m = read_graph(argv[1], &edges);
-    int n = 0;
+    int m = read_graph(argv[1], &edges, &n);
 
     if (m <= 0)
     {
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     {
         for (int i = 0; i < n; i++)
             {
-            fprintf("%d %.2f %.2f\n", i, x[i], y[i]);
+            fprintf(out, "%d %.2f %.2f\n", i, x[i], y[i]);
             }
         fclose(out);
         printf("Ready! \n %s\n", argv[2]);
@@ -50,4 +50,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
 
