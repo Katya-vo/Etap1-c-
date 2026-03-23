@@ -24,6 +24,13 @@ int main(int argc, char *argv[])
     
     double *x = malloc(n * sizeof(double));
     double *y = malloc(n * sizeof(double));
+    if (x == NULL || y == NULL)
+    { 
+        fprintf(stderr, "Error memmory allocation failed\n");
+        free(edges); 
+        if (x) free(x);
+        return 1;
+}
     
     if (strcmp(argv[3], "circle") == 0) {
         circle_layout(x, y, n);
