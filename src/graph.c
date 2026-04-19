@@ -26,7 +26,11 @@ int read_graph(const char *filename, Edge **edges, int *n, int **exists)
             Edge *temp = realloc(e, capacity * sizeof(Edge));
             if (!temp) { free(e); fclose(f); return -1; }
             e = temp;
+			count++
         }
+	   if (count == 0) {
+    	fprintf(stderr, "Błąd: Nie wczytano żadnych krawędzi. Sprawdź format pliku.\n");
+	   }
         e[count].u = u;
         e[count].v = v;
         e[count].weight = w;
