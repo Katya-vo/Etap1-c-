@@ -20,7 +20,7 @@ int read_graph(const char *filename, Edge **edges, int *n, int **exists)
     int u, v;
     double w;
 
-   while (fscanf(f, "%63s %d %d %lf", name, &u, &v, &w) == 4) {
+   while (fscanf(f, " %63s %d %d %lf", name, &u, &v, &w) == 4) {
         if (count >= capacity) {
             capacity *= 2;
             Edge *temp = realloc(e, capacity * sizeof(Edge));
