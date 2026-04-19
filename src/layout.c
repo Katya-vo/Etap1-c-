@@ -7,14 +7,12 @@
 #endif
 
 void circle_layout(double *x, double *y, int n) {
-  double R = 100.0;
-
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         double angle = 2.0 * M_PI * i / n;
-        x[i] = R * cos(2 * M_PI * i / n);
-        y[i] = R * sin(2 * M_PI * i / n);
+        x[i] = 100.0 * cos(angle);
+        y[i] = 100.0 * sin(angle);
     }
+}
 }
 void random_layout(double *x, double *y, int n) {
     srand(time(NULL));
