@@ -18,11 +18,15 @@ int main(int argc, char *argv[])
 
     int m = read_graph(argv[1], &edges, &n, &exists);
 
-    if (m <= 0)
-    {
-        printf("Error reading graph\n");
-        return 1;
-    }
+	if (m < 0) { 
+    printf("Błąd krytyczny: Nie można otworzyć pliku lub błąd alokacji.\n");
+    return 1;
+	}
+	if (m == 0) {
+    printf("Błąd formatu: Plik istnieje, ale fscanf nie wczytał żadnych krawędzi.\n");
+    printf("Sprawdź, czy format to: Nazwa ID1 ID2 Waga\n");
+    return 1;
+	}
     
     double *x = malloc(n * sizeof(double));
     double *y = malloc(n * sizeof(double));
