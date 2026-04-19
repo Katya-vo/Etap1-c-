@@ -13,7 +13,6 @@ void circle_layout(double *x, double *y, int n) {
         y[i] = 100.0 * sin(angle);
     }
 }
-}
 void random_layout(double *x, double *y, int n) {
     srand(time(NULL));
     for (int i = 0; i < n; i++) {
