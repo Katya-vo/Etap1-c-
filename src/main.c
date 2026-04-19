@@ -8,13 +8,15 @@ int main(int argc, char *argv[])
 {
     if (argc < 5)
     {
-        printf("Usage: %s graph.txt\n", argv[0]);
+        printf("Usage: %s <input.txt> <output> <circle|random><txt|bin>\n", argv[0]);
         return 1;
     }
 
     int n =0;
     Edge *edges;
-    int m = read_graph(argv[1], &edges, &n);
+    int *exists = NULL;
+
+    int m = read_graph(argv[1], &edges, &n, &exists);
 
     if (m <= 0)
     {
@@ -28,6 +30,7 @@ int main(int argc, char *argv[])
     { 
         fprintf(stderr, "Error memmory allocation failed\n");
         free(edges); 
+	free(exists);
         if (x) free(x);
         return 1;
 }
@@ -42,11 +45,18 @@ int main(int argc, char *argv[])
 {
         FILE *out = fopen(argv[2], "wb");
         if (out) {
-            fwrite(&n, sizeof(int), 1, out);
-            fwrite(x, sizeof(double), n, out);
-            fwrite(y, sizeof(double), n, out);
+            int actual_v = 0;
+            for (int i = 0; i < n; i++) if (exists[i]) actual_v++;
+
+            fwrite(&actual_v, sizeof(int), 1, out);
+            for (int i = 0; i < n; i++) {
+                if (exists[i]) {
+                    fwrite(&i, sizeof(int), 1, out);                     		    fwrite(&x[i], sizeof(double), 1, out);
+                    fwrite(&y[i], sizeof(double), 1, out);
+                }
+            }
             fclose(out);
-            printf("Ready!\n %s\n", argv[2]);
+            printf("Gotowe (BIN)! Zapisano w: %s\n", argv[2]);
         }
 }
     else 
@@ -54,10 +64,15 @@ int main(int argc, char *argv[])
     FILE *out = fopen(argv[2], "w");
     if(out)
     {
-        fprintf(out, "%d\n", n);
-        for (int i = 0; i < n; i++)
+        int actual_v = 0;
+            for (int i = 0; i < n; i++) if (exists[i]) actual_v++;
+
+            fprintf(out, "%d\n", actual_v);             
+	    for (int i = 0; i < n; i++)
             {
-            fprintf(out, "%d %.2f %.2f\n", i, x[i], y[i]);
+                if (exists[i]) { 
+                    fprintf(out, "%d %.2f %.2f\n", i, x[i], y[i]);
+		}
             }
         fclose(out);
         printf("Ready! \n %s\n", argv[2]);
@@ -65,11 +80,13 @@ int main(int argc, char *argv[])
 }
 
     free(edges);
+    free(exists);
     free(x);
     free(y);
 
     return 0;
 }
+
 
 
 
