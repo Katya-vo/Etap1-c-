@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import sys
 def plot_graph(coords_file, edges_file, output_image="graph_result.png"):
  nodes = {}
-  try:
+ try:
     with open(coords_file, 'r') as f:
         for line in f:
             parts = line.split()
